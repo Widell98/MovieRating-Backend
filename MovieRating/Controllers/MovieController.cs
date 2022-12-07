@@ -22,7 +22,7 @@ namespace MovieRating.Controllers
         public IActionResult GetMovies()
         {
             var movieData = _db.Movies;
-            return Json(movieData);
+            return Ok(movieData);
 
         }
 
@@ -43,6 +43,7 @@ namespace MovieRating.Controllers
             _db.Movies.Add(NewMovie);
             _db.SaveChanges();
         }
+
         [HttpPost]
         [Route("Edit")]
         public void Edit(int id, Movie movie)
