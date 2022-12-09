@@ -11,15 +11,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
     builder.Configuration.GetConnectionString("DefaultConnection") 
     ));
 
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("CorsPolicy",
-//        builder => builder.AllowAnyOrigin()
-//        .AllowCredentials()
-//        .AllowAnyMethod()
-//        .AllowAnyHeader()
-//        );
-//});
+
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {
     builder.AllowAnyMethod().AllowAnyHeader().AllowCredentials().WithOrigins("http://localhost:3000");

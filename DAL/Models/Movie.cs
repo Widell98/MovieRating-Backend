@@ -11,9 +11,7 @@ namespace DAL.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
-        public DateTime Date { get; set; }
-        [MaxLength(10)]
+        //public DateTime Date { get; set; }
         public int Rating { get; set; }
         public string Title { get; set; }
         public string Comment { get; set; }
