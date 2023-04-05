@@ -21,7 +21,6 @@ namespace MovieRating.Controllers
         {
             var movieData = _db.Movies;
             return Ok(movieData);
-
         }
 
         [HttpGet]
@@ -39,9 +38,9 @@ namespace MovieRating.Controllers
 
         [HttpPost]
         [Route("post")]
-        public IActionResult Post(Movie NewMovie)
+        public async Task<ActionResult<Movie>> PostMovie(Movie movie)
         {
-            if (NewMovie == null)
+            if (movie == null)
             {
                 return BadRequest();
             }
@@ -50,23 +49,14 @@ namespace MovieRating.Controllers
                 return BadRequest(ModelState);
             }
 
-            _db.Movies.Add(NewMovie);
-            var count = _db.SaveChanges();
-            if(count == 1)
-            {
-                return Ok();
-            }
-            else
-            {
-                return StatusCode(500, "A problem happend handeling your request.");
-            }
-
-            //_db.Movies.Add(NewMovie);
-            //_db.SaveChanges();
+            _db.Movies.Add(movie);
+            await _db.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetMovies), new { id = movie.Id }, movie);
+                                
 
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("Edit")]
         public void Edit(int id, Movie movie)
         {
